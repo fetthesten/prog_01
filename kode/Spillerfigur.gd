@@ -15,7 +15,7 @@ var bytt_bilde = false
 var poeng = 0
 
 onready var kamera = $'../Camera2D'
-onready var poengtekst = $'../RichTextLabel'
+onready var poengtekst = $'../Info/Poengtekst'
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -55,7 +55,7 @@ func _process(delta):
 		bytt_bilde = not bytt_bilde
 		animasjonstid = tid
 	
-	if floor(flyttresultat.x) == 0 and floor(flyttresultat.y) <= 20:
+	if floor(flyttresultat.x) == 0 and flyttresultat.y <= 20:
 		animasjon = 0
 	elif abs(flyttresultat.y) >= 20:
 		animasjon = 1
@@ -68,8 +68,10 @@ func _process(delta):
 	$Sprite.scale.x = animasjonsretning
 	
 	kamera.position = position + Vector2(200 * animasjonsretning,0)
+	poengtekst.bbcode_text = '[color=red]Poeng: ' + str(poeng) + '[/color]'
 
-func kollisjon_med_objekt(body):
-	if body.name == 'Diamant':
-		body.queue_free()
+func kollisjon_med_objekt(trigger):
+	var objekt = trigger.get_parent()
+	if objekt.name.begins_with('Diamant'):
+		objekt.queue_free()
 		poeng += 20

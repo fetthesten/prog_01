@@ -11,7 +11,7 @@ extents = Vector2( 24, 32 )
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 34 )
+extents = Vector2( 26, 35 )
 
 [node name="Spillerfigur" type="KinematicBody2D"]
 
@@ -37,7 +37,7 @@ _sections_unfolded = [ "Animation" ]
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 
-position = Vector2( 0, 14 )
+position = Vector2( 0, 16 )
 input_pickable = true
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
@@ -52,6 +52,6 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 shape = SubResource( 2 )
 
-[connection signal="body_entered" from="Area2D" to="." method="kollisjon_med_objekt"]
+[connection signal="area_entered" from="Area2D" to="." method="kollisjon_med_objekt"]
 
 
