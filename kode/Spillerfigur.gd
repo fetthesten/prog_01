@@ -17,6 +17,8 @@ var poeng = 0
 onready var kamera = $'../Camera2D'
 onready var poengtekst = $'../Info/Poengtekst'
 
+onready var glittereffekt = preload('res://grafikk/Glitter.tscn')
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -73,5 +75,9 @@ func _process(delta):
 func kollisjon_med_objekt(trigger):
 	var objekt = trigger.get_parent()
 	if objekt.name.begins_with('Diamant'):
+		var glitter = glittereffekt.instance()
+		glitter.position = Vector2(0,0)
+		glitter.emitting = true
+		add_child(glitter)
 		objekt.queue_free()
 		poeng += 20
