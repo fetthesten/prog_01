@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://kode/RobotRød.gd" type="Script" id=1]
+[ext_resource path="res://grafikk/robot_redDrive1.png" type="Texture" id=2]
+[ext_resource path="res://grafikk/robot_redDrive2.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 84, 84 )
+
+[node name="RobotRød" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 5
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="0"]
+
+scale = Vector2( 1.2, 1.2 )
+frames = SubResource( 1 )
+animation = "default"
+playing = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+
+[node name="Skadetrigger" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Skadetrigger" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="Skadetid" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 0.8
+one_shot = false
+autostart = false
+
+[node name="Doedtid" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[node name="Eksplosjonstid" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.2
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="Skadetid" to="." method="skade_stopp"]
+
+[connection signal="timeout" from="Doedtid" to="." method="forsvinn"]
+
+[connection signal="timeout" from="Eksplosjonstid" to="." method="eksploder"]
+
+

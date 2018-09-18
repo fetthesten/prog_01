@@ -1,15 +1,12 @@
 extends KinematicBody2D
 
 var liv = 1
-var hastighet = 200
+var hastighet = 150
 var siste_retning = Vector2(-1,0)
 var fallhastighet = 400
 var fall = 0
 
-func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
+onready var eksplosjon_effekt = preload('res://grafikk/Eksplosjon.tscn')
 
 func _process(delta):
 	var flytt = siste_retning * hastighet
@@ -27,3 +24,11 @@ func _process(delta):
 		fall = 0
 
 	$Sprite.flip_h = siste_retning.x == -1
+
+func skade():
+	liv -=1
+	var eksplosjon = eksplosjon_effekt.instance()
+	get_parent().add_child(eksplosjon)
+	eksplosjon.global_position = global_position
+	eksplosjon.playing = true
+	queue_free()

@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://kode/Spillerskudd.gd" type="Script" id=1]
+[ext_resource path="res://grafikk/partikler/circle_03.png" type="Texture" id=2]
+[ext_resource path="res://grafikk/partikler/circle_05.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+
+[sub_resource type="Curve" id=3]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 0.0273438 ), 0.0, 4.03082, 0, 0, Vector2( 0.0633855, 0.40332 ), -0.350906, -0.350906, 0, 0, Vector2( 1, 0 ), -1.68687, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+
+flags = 4
+width = 2048
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 30.0
+angle_random = 1.0
+scale = 0.1
+scale_random = 0.0
+scale_curve = SubResource( 4 )
+color = Color( 0.421875, 0, 0.415283, 1 )
+hue_variation = 0.6
+hue_variation_random = 0.3
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Angle", "Animation", "Color", "Emission Shape", "Flags", "Gravity", "Hue Variation", "Initial Velocity", "Scale", "Spread" ]
+
+[sub_resource type="CanvasItemMaterial" id=6]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+
+[node name="Spillerskudd" type="RigidBody2D"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 36
+mode = 0
+mass = 0.00346939
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="." index="1"]
+
+material = SubResource( 2 )
+emitting = true
+amount = 8
+lifetime = 0.3
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = SubResource( 5 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time" ]
+
+[node name="Skuddtimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="Sprite" type="Sprite" parent="." index="3"]
+
+modulate = Color( 0.589844, 0.00691223, 0.539748, 1 )
+material = SubResource( 6 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[connection signal="body_entered" from="." to="." method="kollisjon_med_objekt"]
+
+[connection signal="timeout" from="Skuddtimer" to="." method="queue_free"]
+
+

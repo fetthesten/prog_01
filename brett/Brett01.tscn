@@ -1,11 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://grafikk/OpenSans-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://grafikk/liv.png" type="Texture" id=2]
-[ext_resource path="res://grafikk/Brikkesett.tres" type="TileSet" id=3]
-[ext_resource path="res://objekter/Spillerfigur.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objekter/Diamant.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objekter/BlåRobot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://grafikk/tidstripe.png" type="Texture" id=3]
+[ext_resource path="res://grafikk/Brikkesett.tres" type="TileSet" id=4]
+[ext_resource path="res://objekter/Spillerfigur.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objekter/Diamant.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objekter/RobotBlå.tscn" type="PackedScene" id=7]
+[ext_resource path="res://grafikk/rødkloss.png" type="Texture" id=8]
+[ext_resource path="res://objekter/RobotRød.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objekter/Utgangsdør.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objekter/Nøkkel.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -30,6 +35,16 @@ _sections_unfolded = [ "Font", "Settings" ]
 [sub_resource type="Theme" id=4]
 
 default_font = SubResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 64, 256 )
+
+[sub_resource type="RectangleShape2D" id=6]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30, 256 )
 
 [node name="Brett01" type="Node2D" index="0"]
 
@@ -106,9 +121,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 128.0
-margin_top = 320.0
+margin_top = 128.0
 margin_right = 1150.0
-margin_bottom = 919.0
+margin_bottom = 727.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -129,10 +144,40 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Anchor", "BBCode", "Grow Direction", "Rect", "Theme" ]
 
+[node name="Bonusstripe" type="TextureProgress" parent="Info" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 57.0
+margin_right = 86.0
+margin_bottom = 77.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 300.0
+step = 1.0
+page = 0.0
+value = 300.0
+exp_edit = false
+rounded = false
+texture_under = null
+texture_over = null
+texture_progress = ExtResource( 3 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Percent", "Radial Fill", "Textures", "Theme" ]
+
 [node name="TileMap" type="TileMap" parent="." index="1"]
 
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -143,7 +188,7 @@ cell_clip_uv = false
 collision_use_kinematic = false
 collision_friction = 1.0
 collision_bounce = 0.0
-collision_layer = 1
+collision_layer = 33
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
@@ -153,7 +198,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Spillerfigur" parent="." index="2" instance=ExtResource( 4 )]
+[node name="Spillerfigur" parent="." index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 95.5792, 269.352 )
 
@@ -187,110 +232,182 @@ _sections_unfolded = [ "Smoothing" ]
 
 editor/display_folded = true
 
-[node name="Diamant" parent="Diamanter" index="0" instance=ExtResource( 5 )]
+[node name="Diamant" parent="Diamanter" index="0" instance=ExtResource( 6 )]
 
 position = Vector2( 64, 128 )
 
-[node name="Diamant2" parent="Diamanter" index="1" instance=ExtResource( 5 )]
+[node name="Diamant2" parent="Diamanter" index="1" instance=ExtResource( 6 )]
 
 position = Vector2( 192, 128 )
 
-[node name="Diamant3" parent="Diamanter" index="2" instance=ExtResource( 5 )]
+[node name="Diamant3" parent="Diamanter" index="2" instance=ExtResource( 6 )]
 
 position = Vector2( 128, 128 )
 
-[node name="Diamant4" parent="Diamanter" index="3" instance=ExtResource( 5 )]
+[node name="Diamant4" parent="Diamanter" index="3" instance=ExtResource( 6 )]
 
 position = Vector2( 1088, 64 )
 
-[node name="Diamant5" parent="Diamanter" index="4" instance=ExtResource( 5 )]
+[node name="Diamant5" parent="Diamanter" index="4" instance=ExtResource( 6 )]
 
 position = Vector2( 1152, 64 )
 
-[node name="Diamant6" parent="Diamanter" index="5" instance=ExtResource( 5 )]
+[node name="Diamant6" parent="Diamanter" index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 1216, 64 )
 
-[node name="Diamant7" parent="Diamanter" index="6" instance=ExtResource( 5 )]
+[node name="Diamant7" parent="Diamanter" index="6" instance=ExtResource( 6 )]
 
 position = Vector2( 384, 256 )
 
-[node name="Diamant8" parent="Diamanter" index="7" instance=ExtResource( 5 )]
+[node name="Diamant8" parent="Diamanter" index="7" instance=ExtResource( 6 )]
 
 position = Vector2( 512, 256 )
 
-[node name="Diamant9" parent="Diamanter" index="8" instance=ExtResource( 5 )]
+[node name="Diamant9" parent="Diamanter" index="8" instance=ExtResource( 6 )]
 
 position = Vector2( 640, 256 )
 
-[node name="Diamant10" parent="Diamanter" index="9" instance=ExtResource( 5 )]
+[node name="Diamant10" parent="Diamanter" index="9" instance=ExtResource( 6 )]
 
 position = Vector2( 1472, 128 )
 
-[node name="Diamant11" parent="Diamanter" index="10" instance=ExtResource( 5 )]
+[node name="Diamant11" parent="Diamanter" index="10" instance=ExtResource( 6 )]
 
 position = Vector2( 1600, 128 )
 
-[node name="Diamant12" parent="Diamanter" index="11" instance=ExtResource( 5 )]
+[node name="Diamant12" parent="Diamanter" index="11" instance=ExtResource( 6 )]
 
 position = Vector2( 2048, 64 )
 
-[node name="Diamant13" parent="Diamanter" index="12" instance=ExtResource( 5 )]
+[node name="Diamant13" parent="Diamanter" index="12" instance=ExtResource( 6 )]
 
 position = Vector2( 2176, 64 )
 
-[node name="Diamant14" parent="Diamanter" index="13" instance=ExtResource( 5 )]
+[node name="Diamant14" parent="Diamanter" index="13" instance=ExtResource( 6 )]
 
 position = Vector2( 2112, 64 )
 
-[node name="Diamant15" parent="Diamanter" index="14" instance=ExtResource( 5 )]
+[node name="Diamant15" parent="Diamanter" index="14" instance=ExtResource( 6 )]
 
 position = Vector2( 1984, 64 )
 
-[node name="Diamant16" parent="Diamanter" index="15" instance=ExtResource( 5 )]
+[node name="Diamant16" parent="Diamanter" index="15" instance=ExtResource( 6 )]
 
 position = Vector2( 1984, -320 )
 
-[node name="Diamant17" parent="Diamanter" index="16" instance=ExtResource( 5 )]
+[node name="Diamant17" parent="Diamanter" index="16" instance=ExtResource( 6 )]
 
 position = Vector2( 2496, -576 )
 
-[node name="Diamant18" parent="Diamanter" index="17" instance=ExtResource( 5 )]
+[node name="Diamant18" parent="Diamanter" index="17" instance=ExtResource( 6 )]
 
 position = Vector2( 2048, -640 )
 
-[node name="Diamant19" parent="Diamanter" index="18" instance=ExtResource( 5 )]
+[node name="Diamant19" parent="Diamanter" index="18" instance=ExtResource( 6 )]
 
 position = Vector2( 2112, -640 )
 
-[node name="Diamant20" parent="Diamanter" index="19" instance=ExtResource( 5 )]
+[node name="Diamant20" parent="Diamanter" index="19" instance=ExtResource( 6 )]
 
 position = Vector2( 2176, -640 )
 
-[node name="Diamant21" parent="Diamanter" index="20" instance=ExtResource( 5 )]
+[node name="Diamant21" parent="Diamanter" index="20" instance=ExtResource( 6 )]
 
 position = Vector2( 2368, -896 )
 
-[node name="Diamant22" parent="Diamanter" index="21" instance=ExtResource( 5 )]
+[node name="Diamant22" parent="Diamanter" index="21" instance=ExtResource( 6 )]
 
 position = Vector2( 2240, -896 )
 
-[node name="Diamant23" parent="Diamanter" index="22" instance=ExtResource( 5 )]
+[node name="Diamant23" parent="Diamanter" index="22" instance=ExtResource( 6 )]
 
 position = Vector2( 2304, -896 )
 
 [node name="Roboter" type="Node" parent="." index="5"]
 
-[node name="BlåRobot" parent="Roboter" index="0" instance=ExtResource( 6 )]
+editor/display_folded = true
+
+[node name="RobotBlå" parent="Roboter" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 1920, 128 )
 
-[node name="BlåRobot2" parent="Roboter" index="1" instance=ExtResource( 6 )]
+[node name="RobotBlå2" parent="Roboter" index="1" instance=ExtResource( 7 )]
 
 position = Vector2( 1920, -640 )
 
-[node name="BlåRobot3" parent="Roboter" index="2" instance=ExtResource( 6 )]
+[node name="RobotBlå3" parent="Roboter" index="2" instance=ExtResource( 7 )]
 
 position = Vector2( 2624, -960 )
+
+[node name="Bossrom" type="Node" parent="." index="6"]
+
+[node name="Bosstrigger" type="Area2D" parent="Bossrom" index="0"]
+
+position = Vector2( 2910.68, -1068.7 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bossrom/Bosstrigger" index="0"]
+
+position = Vector2( 94.9624, 10.5514 )
+shape = SubResource( 5 )
+
+[node name="Bossvegg" type="StaticBody2D" parent="Bossrom" index="1"]
+
+visible = false
+position = Vector2( 2719.74, -1151.91 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sperre" type="CollisionShape2D" parent="Bossrom/Bossvegg" index="0"]
+
+shape = SubResource( 6 )
+disabled = true
+
+[node name="Bilde" type="TextureRect" parent="Bossrom/Bossvegg" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -32.0
+margin_top = -256.0
+margin_right = 32.0
+margin_bottom = 256.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+stretch_mode = 2
+_sections_unfolded = [ "Rect" ]
+
+[node name="RobotRød" parent="Bossrom" index="2" instance=ExtResource( 9 )]
+
+position = Vector2( 3593.33, -1311.27 )
+
+[node name="Utgangsdør" parent="Bossrom" index="3" instance=ExtResource( 10 )]
+
+position = Vector2( 4256.78, -895.841 )
+
+[node name="Nøkkel" parent="Bossrom" index="4" instance=ExtResource( 11 )]
+
+visible = false
+position = Vector2( 4060.73, -949.327 )
+_sections_unfolded = [ "Collision", "Transform" ]
 
 

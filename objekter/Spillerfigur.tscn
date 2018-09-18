@@ -22,7 +22,7 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "collision" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Kollisjon" type="CollisionShape2D" parent="." index="0"]
 
 position = Vector2( 0, 16 )
 shape = SubResource( 1 )
@@ -59,8 +59,26 @@ wait_time = 0.8
 one_shot = true
 autostart = true
 
+[node name="Skuddtid" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = false
+autostart = false
+
+[node name="Bonustid" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
 [connection signal="area_entered" from="Area2D" to="." method="kollisjon_med_objekt"]
 
 [connection signal="timeout" from="Skadetid" to="." method="fjern_skadeindikator"]
+
+[connection signal="timeout" from="Skuddtid" to="." method="kan_skyte"]
+
+[connection signal="timeout" from="Bonustid" to="." method="reduser_bonus"]
 
 
